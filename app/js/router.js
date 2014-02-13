@@ -3,6 +3,8 @@ ContactManager.Router = Backbone.Router.extend({
 		'': 'home',
 		'contacts': 'showContacts',
 		'contacts/new': 'newContact',
-		'contacts/edit/:id': 'editContact'
+		'contacts/edit/:id': 'editContact',
+		'signup': 'signupUser',
+		'login': 'loginUser'
 	}
 });

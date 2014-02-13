@@ -6,19 +6,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Contact Manager</title>
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="app/css/main.css">
+    <link rel="stylesheet" href="app/css/main.css">
+	<link rel="stylesheet" href="app/css/loader.css">
 </head>
 <body>
 	<header class="bs-header">
 		<div class="container">
         <h1>Contact Manager</h1>
         <p>Simple Backbone.js example application</p>
+        <hr>
+        <p class="text-center">
+            <a href="#signup" class="btn btn-lg btn-outline">Signup</a>
+            <a href="#login" class="btn btn-lg btn-outline">Login</a>
+        </p>
       </div>
 	</header>
 	<div class="container">
       <div class="row">
         <div class="col-xs-12 main-container">
-        </div>
+            <div id="floatingCirclesG" class="center-block">
+                <div class="f_circleG" id="frotateG_01">
+                </div>
+                <div class="f_circleG" id="frotateG_02">
+                </div>
+                <div class="f_circleG" id="frotateG_03">
+                </div>
+                <div class="f_circleG" id="frotateG_04">
+                </div>
+                <div class="f_circleG" id="frotateG_05">
+                </div>
+                <div class="f_circleG" id="frotateG_06">
+                </div>
+                <div class="f_circleG" id="frotateG_07">
+                </div>
+                <div class="f_circleG" id="frotateG_08">
+                </div>
+            </div>
       </div>
     </div>
     
@@ -48,7 +71,7 @@
     	<div class="media-body">
     		<dl>
     			<dt>Phone Number:</dt>
-    			<dd><%- tel %></dd>
+    			<dd><%- phone %></dd>
     			<dt>Email:</dt>
     			<dd><%- email %></dd>
     		</dl>    		
@@ -60,11 +83,29 @@
     <h2 class="page-header text-center"><%= isNew ? 'Create' : 'Edit' %> Contact</h2>
     <form role="form" class="form-horizontal contact-form">
       <div class="form-group">
-        <label class="col-sm-4 control-label">Full name:</label>
+        <label class="col-sm-4 control-label">Title:</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control contact-name-input" value="<%- name %>">
+          <input type="text" class="form-control contact-title-input" value="<%- title %>">
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">First name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-firstName-input" value="<%- firstName %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Last name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-lastName-input" value="<%- lastName %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Gender:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-lastName-input" value="<%- gender %>">
+        </div>
+      </div>      
       <div class="form-group">
         <label class="col-sm-4 control-label">Email address:</label>
         <div class="col-sm-6">
@@ -74,9 +115,15 @@
       <div class="form-group">
         <label class="col-sm-4 control-label">Telephone number:</label>
         <div class="col-sm-6">
-          <input type="tel" class="form-control contact-tel-input" value="<%- tel %>">
+          <input type="tel" class="form-control contact-phone-input" value="<%- phone %>">
         </div>
       </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Cell number:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-cell-input" value="<%- cell %>">
+        </div>
+      </div>      
       <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
           <button type="submit" class="btn btn-outline btn-lg btn-block">Submit</button>
@@ -88,58 +135,57 @@
     </form>
   </script>
 
+  <script type="text/template" id="tpl-signup">
+    <h2 class="page-header text-center"><%= createNew ? 'Signup' : 'Login' %></h2>
+    <form role="form" class="form-horizontal signup-form">
+      <div class="alert alert-danger" <%= errorMessage ? '' : 'style="visibility: collapse"' %>><%= errorMessage %></div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Login:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control signup-login-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Password:</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control signup-password-input">
+        </div>
+      </div>
+      <div class="form-group" <%= createNew ? '' : 'style="visibility: collapse"' %>>
+        <label class="col-sm-4 control-label">Repeat password:</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control signup-password2-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+          <button type="submit" class="btn btn-outline btn-lg btn-block"><%= createNew ? 'Sign me in' : 'Log me in' %></button>
+        </div>
+        <div class="col-sm-3">
+          <a href="#contacts" class="btn btn-outline btn-lg btn-block">Cancel</a>
+        </div>        
+      </div>
+    </form>
+  </script>
+
 
     <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
     <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
     <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+    <script type="text/javascript" src="bower_components/marionette/lib/backbone.marionette.js"></script>
+    <script type="text/javascript" src="bower_components/q/q.js"></script>
     <script type="text/javascript" src="app/js/app.js"></script>
     <script type="text/javascript" src="app/js/models/contact.js"></script>
+    <script type="text/javascript" src="app/js/models/user.js"></script>
     <script type="text/javascript" src="app/js/collections/contacts.js"></script>
     <script type="text/javascript" src="app/js/views/contact.js"></script>
     <script type="text/javascript" src="app/js/views/contacts.js"></script>
     <script type="text/javascript" src="app/js/views/contactForm.js"></script>
+    <script type="text/javascript" src="app/js/views/signupForm.js"></script>
+    <script type="text/javascript" src="app/js/services/api.js"></script>
     <script type="text/javascript" src="app/js/router.js"></script>    
     <script>
-    	ContactManager.start({
-        contacts: [
-          {
-            id: 1,
-            name : 'Terrence S. Hatfield',
-            tel: '651-603-1723',
-            email: 'TerrenceSHatfield@rhyta.com'
-          },
-          {
-            id: 2,
-            name : 'Chris M. Manning',
-            tel: '513-307-5859',
-            email: 'ChrisMManning@dayrep.com'
-          },
-          {
-            id: 3,
-            name : 'Ricky M. Digiacomo',
-            tel: '918-774-0199',
-            email: 'RickyMDigiacomo@teleworm.us'
-          },
-          {
-            id: 4,
-            name : 'Michael K. Bayne',
-            tel: '702-989-5145',
-            email: 'MichaelKBayne@rhyta.com'
-          },
-          {
-            id: 5,
-            name : 'John I. Wilson',
-            tel: '318-292-6700',
-            email: 'JohnIWilson@dayrep.com'
-          },
-          {
-            id: 6,
-            name : 'Rodolfo P. Robinett',
-            tel: '803-557-9815',
-            email: 'RodolfoPRobinett@jourrapide.com'
-          }
-        ]
-      });
+    	ContactManager.start();
     </script>
 </body>
 </html>

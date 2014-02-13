@@ -1,9 +1,19 @@
 ContactManager.Models.Contact = Backbone.Model.extend({
 	defaults: {
-		name: null,
-		tel: null,
+		firstName: null,
+		lastName: null,
+		title: null,
 		email: null,
-		avatar: null
+		avatar: null,
+		gender: null,
+		loadedDetails: false,
+		street: null,
+		city: null,
+		state: null,
+		zip: null,
+		phone: null,
+		cell: null,
+		SSN: null,
 	},
 
 	initialize: function() {
