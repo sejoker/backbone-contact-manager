@@ -19,18 +19,23 @@ var API_URL = 'http://www.jscacourse.co.vu',
 
 ContactManager.Services.Api = {
 	getUsersAsync: function(){
-		var deferred = Q.defer();			
+		var deferred = Q.defer(),
+			avatarTemplate = _.template("http://api.randomuser.me/0.3/portraits/<%= gender %>/<%= id %>.jpg");
 
 		$.get(API_URL +"/users")
 			.done(function(result){
 				var users = [];
 					_.each(result, function(userInfo){
+						var imageId = _.random(0, 59),
+							gender = userInfo.user.gender == 'male' ? 'men' : 'women';							
+
 						users.push({
 							id: userInfo.id,
 							gender: userInfo.user.gender,
 							title: userInfo.user.name.title,
 							firstName: userInfo.user.name.first,
-							lastName: userInfo.user.name.last
+							lastName: userInfo.user.name.last,
+							avatar: avatarTemplate({gender: gender, id: imageId})
 						});							
 					});
 
