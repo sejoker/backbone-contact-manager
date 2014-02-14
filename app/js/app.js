@@ -49,26 +49,72 @@ window.ContactManager = {
 
 							if (contact){
 								if (!contact.get('loadedDetails')){
-									api.getContactDetails(id, user.get('token'));
-								}
+									api.getContactDetails(id, user.get('token')).then(function(attrs){
+										contact.set(attrs);
 
-								editContactForm = new ContactManager.Views.ContactForm({
-									model: contact
-								});
+										editContactForm = new ContactManager.Views.ContactForm({
+											model: contact
+										});
 
-								editContactForm.on('form:submitted', function(attrs){
-									contact.set(attrs);
-									router.navigate('contacts', true);
-								})
+										editContactForm.on('form:submitted', function(attrs){									
+											contact.set(attrs);
+											router.navigate('contacts', true);
+										})
 
-								$('.main-container').html(editContactForm.render().$el);
+										$('.main-container').html(editContactForm.render().$el);
+									});
+								} else {
+									editContactForm = new ContactManager.Views.ContactForm({
+										model: contact
+									});
+
+									editContactForm.on('form:submitted', function(attrs){									
+										contact.set(attrs);
+										router.navigate('contacts', true);
+									})
+
+									$('.main-container').html(editContactForm.render().$el);
+								}								
 							} else {
 								router.navigate('contacts', true);
 							}
 						} else {
 							logon(editContact, id);
 						}
-					};
+					},
+				removeContact = function(id){
+					if (user && user.get('signedIn')){
+						contacts.remove(id);
+						router.navigate('contacts', true);
+					} else {
+						logon(removeContact, id);
+					}
+				}
+
+				newContact = function(){
+					if (user && user.get('signedIn')){
+						var newContactForm = new ContactManager.Views.ContactForm({
+							model: new ContactManager.Models.Contact()
+						});
+
+						newContactForm.on('form:submitted', function(attrs){
+							var contact = new ContactManager.Models.Contact();
+							contact.set('id', _.random(1, 1000));
+							contact.set(attrs);
+							contact.set('loadedDetails', true);
+							contact.set('avatar', ContactManager.Services.Api.getAvatar(attrs.gender))
+							contacts.add(contact);
+							
+							router.navigate('contacts', true);
+						});
+
+						$('.main-container').html(newContactForm.render().$el);
+					}
+					else {
+						logon(newContact);
+					}
+				};
+
 
 				router.on('route:home', function(){
 					router.navigate('contacts', {
@@ -116,21 +162,10 @@ window.ContactManager = {
 
 				router.on('route:loginUser', logon);
 
-				router.on('route:newContact', function(){
-					var newContactForm = new ContactManager.Views.ContactForm({
-						model: new ContactManager.Models.Contact()
-					});
-
-					newContactForm.on('form:submitted', function(attrs){
-						attrs.id = contacts.isEmpty() ? 1: (_.max(contacts.pluck('id')) + 1);
-						contacts.add(attrs);
-						router.navigate('contacts', true);
-					});
-
-					$('.main-container').html(newContactForm.render().$el);
-				});
+				router.on('route:newContact', newContact);
 
 				router.on('route:editContact', editContact);	
+				router.on('route:removeContact', removeContact);	
 
 				Backbone.history.start();		
 

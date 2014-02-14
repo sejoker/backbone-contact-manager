@@ -5,7 +5,7 @@ ContactManager.Models.Contact = Backbone.Model.extend({
 		title: null,
 		email: null,
 		avatar: null,
-		gender: null,
+		gender: 'male',
 		loadedDetails: false,
 		street: null,
 		city: null,

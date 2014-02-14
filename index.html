@@ -69,7 +69,7 @@
     			<%- name %>
     			<small>
     				<a href="#contacts/edit/<%- id %>"><span class="glyphicon-pencil"></span>
-    				<a href="#contacts/delete/<%- id %>" class="delete-contact">
+    				<a href="#contacts/remove/<%- id %>" class="delete-contact">
     					<span class="glyphicon glyphicon-trash"></span>
     				</a>
     			</small>
@@ -110,7 +110,7 @@
       <div class="form-group">
         <label class="col-sm-4 control-label">Gender:</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control contact-lastName-input" value="<%- gender %>">
+          <input type="text" class="form-control contact-gender-input" value="<%- gender %>">
         </div>
       </div>      
       <div class="form-group">
@@ -130,7 +130,37 @@
         <div class="col-sm-6">
           <input type="tel" class="form-control contact-cell-input" value="<%- cell %>">
         </div>
-      </div>      
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">State:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-state-input" value="<%- state %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">City:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-city-input" value="<%- city %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Street:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-street-input" value="<%- street %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Zip:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-zip-input" value="<%- zip %>">
+        </div>
+      </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">SSN:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-ssn-input" value="<%- SSN %>">
+        </div>
+      </div>
       <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
           <button type="submit" class="btn btn-outline btn-lg btn-block">Submit</button>

@@ -4,6 +4,7 @@ ContactManager.Router = Backbone.Router.extend({
 		'contacts': 'showContacts',
 		'contacts/new': 'newContact',
 		'contacts/edit/:id': 'editContact',
+		'contacts/remove/:id': 'removeContact',
 		'signup': 'signupUser',
 		'login': 'loginUser'
 	}
