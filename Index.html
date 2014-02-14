@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Contact Manager</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app/css/main.css">
+	<link rel="stylesheet" href="app/css/loader.css">
+</head>
+<body>
+    <header class="navbar-static-top bs-docs-nav" id="top" role="banner">
+      <div class="container">
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">      
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#signup">Signup</a></li>
+            <li><a href="#login">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+	<header class="bs-header">
+		<div class="container">
+            <h1>Contact Manager</h1>
+            <p>Simple Backbone.js example application</p>      
+        </div>
+	</header>
+    
+	<div class="container">
+      <div class="row">
+        <div class="col-xs-12 main-container">
+            <div id="floatingCirclesG" class="center-block">
+                <div class="f_circleG" id="frotateG_01">
+                </div>
+                <div class="f_circleG" id="frotateG_02">
+                </div>
+                <div class="f_circleG" id="frotateG_03">
+                </div>
+                <div class="f_circleG" id="frotateG_04">
+                </div>
+                <div class="f_circleG" id="frotateG_05">
+                </div>
+                <div class="f_circleG" id="frotateG_06">
+                </div>
+                <div class="f_circleG" id="frotateG_07">
+                </div>
+                <div class="f_circleG" id="frotateG_08">
+                </div>
+            </div>
+      </div>
+    </div>
+    
+    <script type="text/template" id="tpl-contacts">
+    	<h2 class="page-header text-center">List of contacts</h2>
+    	<p class="text-center">
+    		<a href="#contacts/new" class="btn btn-lg btn-outline">Add contact</a>
+    	</p>
+    	<ul class="media-list row contacts-container"></ul>
+    </script>
+    
+    <script type="text/template" id="tpl-contact">
+    	<div class="thumbnail">
+    		<img class="media-object" src="<%- avatar %>">
+    	</div>
+    	<div class="media-heading">
+    		<h4>
+    			<%- name %>
+    			<small>
+    				<a href="#contacts/edit/<%- id %>"><span class="glyphicon-pencil"></span>
+    				<a href="#contacts/remove/<%- id %>" class="delete-contact">
+    					<span class="glyphicon glyphicon-trash"></span>
+    				</a>
+    			</small>
+    		<h4>
+    	</div>
+    	<div class="media-body">
+    		<dl>
+    			<dt>Title:</dt>
+    			<dd><%- title %></dd>
+    			<dt>Gender:</dt>
+    			<dd><%- gender %></dd>
+    		</dl>    		
+    	</div>
+    	<hr>
+    </script>
+
+    <script type="text/template" id="tpl-new-contact">
+    <h2 class="page-header text-center"><%= isNew ? 'Create' : 'Edit' %> Contact</h2>
+    <form role="form" class="form-horizontal contact-form">
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Title:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-title-input" value="<%- title %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">First name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-firstName-input" value="<%- firstName %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Last name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-lastName-input" value="<%- lastName %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Gender:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-gender-input" value="<%- gender %>">
+        </div>
+      </div>      
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Email address:</label>
+        <div class="col-sm-6">
+          <input type="email" class="form-control contact-email-input" value="<%- email %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Telephone number:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-phone-input" value="<%- phone %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Cell number:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-cell-input" value="<%- cell %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">State:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-state-input" value="<%- state %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">City:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-city-input" value="<%- city %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Street:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-street-input" value="<%- street %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Zip:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-zip-input" value="<%- zip %>">
+        </div>
+      </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">SSN:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-ssn-input" value="<%- SSN %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+          <button type="submit" class="btn btn-outline btn-lg btn-block">Submit</button>
+        </div>
+        <div class="col-sm-3">
+          <a href="#contacts" class="btn btn-outline btn-lg btn-block">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/template" id="tpl-signup">
+    <h2 class="page-header text-center"><%= createNew ? 'Signup' : 'Login' %></h2>
+    <form role="form" class="form-horizontal signup-form">
+      <div class="alert alert-danger" <%= errorMessage ? '' : 'style="visibility: collapse"' %>><%= errorMessage %></div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Login:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control signup-login-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Password:</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control signup-password-input">
+        </div>
+      </div>
+      <div class="form-group" <%= createNew ? '' : 'style="visibility: collapse"' %>>
+        <label class="col-sm-4 control-label">Repeat password:</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control signup-password2-input">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+          <button type="submit" class="btn btn-outline btn-lg btn-block"><%= createNew ? 'Sign me in' : 'Log me in' %></button>
+        </div>
+        <div class="col-sm-3">
+          <a href="#contacts" class="btn btn-outline btn-lg btn-block">Cancel</a>
+        </div>        
+      </div>
+    </form>
+  </script>
+
+
+    <script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+    <script type="text/javascript" src="bower_components/marionette/lib/backbone.marionette.js"></script>
+    <script type="text/javascript" src="bower_components/q/q.js"></script>
+    <script type="text/javascript" src="app/js/app.js"></script>
+    <script type="text/javascript" src="app/js/models/contact.js"></script>
+    <script type="text/javascript" src="app/js/models/user.js"></script>
+    <script type="text/javascript" src="app/js/collections/contacts.js"></script>
+    <script type="text/javascript" src="app/js/views/contact.js"></script>
+    <script type="text/javascript" src="app/js/views/contacts.js"></script>
+    <script type="text/javascript" src="app/js/views/contactForm.js"></script>
+    <script type="text/javascript" src="app/js/views/signupForm.js"></script>
+    <script type="text/javascript" src="app/js/services/api.js"></script>
+    <script type="text/javascript" src="app/js/router.js"></script>    
+    <script>
+    	ContactManager.start();
+    </script>
+</body>
+</html>
