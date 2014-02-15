@@ -28,17 +28,13 @@ ContactManager.addInitializer(function(){
 	 		api: api
 	 	});
 
-	router.on('route:home', controller.home, controller);
+	router.processAppRoutes(controller, {
+		'contacts': 'showContacts',
+		'contacts/new': 'newContact',
+		'contacts/edit/:id': 'editContact',
+		'contacts/remove/:id': 'removeContact',
+		'signup': 'signupUser',
+		'login': 'login'
+	});
 
-	router.on('route:showContacts', controller.showContacts, controller);
-
-	router.on('route:signupUser', controller.signupUser, controller);
-
-	router.on('route:loginUser', controller.logon, controller);
-
-	router.on('route:newContact', controller.newContact, controller);
-
-	router.on('route:editContact', controller.editContact, controller);	
-
-	router.on('route:removeContact', controller.removeContact, controller);	
 });
