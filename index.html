@@ -66,7 +66,7 @@
     	</div>
     	<div class="media-heading">
     		<h4>
-    			<%- name %>
+    			<%- firstName + ' ' + lastName %>
     			<small>
     				<a href="#contacts/edit/<%- id %>"><span class="glyphicon-pencil"></span>
     				<a href="#contacts/remove/<%- id %>" class="delete-contact">
@@ -175,7 +175,7 @@
   <script type="text/template" id="tpl-signup">
     <h2 class="page-header text-center"><%= createNew ? 'Signup' : 'Login' %></h2>
     <form role="form" class="form-horizontal signup-form">
-      <div class="alert alert-danger" <%= errorMessage ? '' : 'style="visibility: collapse"' %>><%= errorMessage %></div>
+      <div class="alert alert-danger" <%= errorMessage ? '' : 'style="display: none"' %>><%= errorMessage %></div>
       <div class="form-group">
         <label class="col-sm-4 control-label">Login:</label>
         <div class="col-sm-6">
@@ -188,7 +188,7 @@
           <input type="password" class="form-control signup-password-input">
         </div>
       </div>
-      <div class="form-group" <%= createNew ? '' : 'style="visibility: collapse"' %>>
+      <div class="form-group" <%= createNew ? '' : 'style="display: none"' %>>
         <label class="col-sm-4 control-label">Repeat password:</label>
         <div class="col-sm-6">
           <input type="password" class="form-control signup-password2-input">

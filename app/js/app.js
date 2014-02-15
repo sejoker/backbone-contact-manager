@@ -11,6 +11,9 @@ window.ContactManager = {
 				var contacts = new ContactManager.Collections.Contacts(users),
 					user = new ContactManager.Models.User(),
 					router = new ContactManager.Router(),
+					mainRegion = new Marionette.Region({
+						el: '.main-container'
+					}),
 				 	logon = function(callback, callbackArgs){
 						var model = new ContactManager.Models.User();
 
@@ -39,7 +42,7 @@ window.ContactManager = {
 							
 						});
 
-						$('.main-container').html(loginForm.render().$el);
+						mainRegion.show(loginForm);
 					},
 
 					editContact = function(id){
@@ -61,7 +64,7 @@ window.ContactManager = {
 											router.navigate('contacts', true);
 										})
 
-										$('.main-container').html(editContactForm.render().$el);
+										mainRegion.show(editContactForm);
 									});
 								} else {
 									editContactForm = new ContactManager.Views.ContactForm({
@@ -73,7 +76,7 @@ window.ContactManager = {
 										router.navigate('contacts', true);
 									})
 
-									$('.main-container').html(editContactForm.render().$el);
+									maiRegion.show(editContactForm);
 								}								
 							} else {
 								router.navigate('contacts', true);
@@ -108,7 +111,7 @@ window.ContactManager = {
 							router.navigate('contacts', true);
 						});
 
-						$('.main-container').html(newContactForm.render().$el);
+						mainRegion.show(newContactForm);
 					}
 					else {
 						logon(newContact);
@@ -129,7 +132,7 @@ window.ContactManager = {
 						collection: contacts
 					});
 
-					$('.main-container').html(contactsView.render().$el);
+					mainRegion.show(contactsView);
 				});
 
 				router.on('route:signupUser', function(){
@@ -157,7 +160,7 @@ window.ContactManager = {
 						
 					});
 
-					$('.main-container').html(signupForm.render().$el);
+					mainRegion.show(signupForm);
 				});
 
 				router.on('route:loginUser', logon);
