@@ -6,4 +6,9 @@ ContactManager.Views.Contact = Marionette.ItemView.extend({
 	modelEvents: {
 		'remove': 'close'
 	},
+
+	triggers: {
+		'click .delete-contact': 'delete:clicked',
+		'click .edit-contact': 'edit:clicked'
+	}
 });

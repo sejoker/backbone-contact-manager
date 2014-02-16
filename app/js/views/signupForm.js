@@ -5,6 +5,10 @@ ContactManager.Views.SignupForm = Marionette.ItemView.extend({
 		'submit .signup-form': 'onFormSubmit'
 	},
 
+	triggers: {
+		'click .form-cancel-btn': 'form:canceled'
+	},
+
 	ui: {
 		login: '.signup-login-input',
 		password: '.signup-password-input',
