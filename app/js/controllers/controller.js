@@ -97,8 +97,9 @@ ContactManager.Controller = Marionette.Controller.extend({
 	},
 
 	newContact: function(){
-		if (!(this._user && this._user.get('signedIn'))){
-			this.login(this.newContact);
+		var that = this;
+		if (!(that._user && that._user.get('signedIn'))){
+			that.login(that.newContact);
 		}
 
 		var newContactForm = new ContactManager.Views.ContactForm({
@@ -111,17 +112,17 @@ ContactManager.Controller = Marionette.Controller.extend({
 			contact.set(attrs);
 			contact.set('loadedDetails', true);
 			contact.set('avatar', ContactManager.Services.Api.getAvatar(attrs.gender))
-			this._contacts.add(contact);
+			that._contacts.add(contact);
 			
-			this.showContacts();
+			that.showContacts();
 		});
 
-		this.listenTo(newContactForm, 'form:canceled', function(){
-			this.showContacts();
+		that.listenTo(newContactForm, 'form:canceled', function(){
+			that.showContacts();
 		})
 
-		this._mainRegion.show(newContactForm);
-		this._router.navigate('contacts/new');
+		that._mainRegion.show(newContactForm);
+		that._router.navigate('contacts/new');
 	},
 
 	showContacts: function(){
