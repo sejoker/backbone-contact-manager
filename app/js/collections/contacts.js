@@ -1,3 +1,8 @@
-ContactManager.Collections.Contacts = Backbone.Collection.extend({
-	model: ContactManager.Models.Contact
+define(['backbone', 'models/contact'], function(Backbone, Contact) {
+	
+	var Contacts = Backbone.Collection.extend({
+		model: Contact
+	});
+
+	return Contacts;
 });
