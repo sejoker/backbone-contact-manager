@@ -17,7 +17,7 @@ require.config({
 			exports: 'Marionette'
 		},
 		q: {
-			exporsts: 'Q'
+			exports: 'Q'
 		}
 	},
 	paths: {
